@@ -5,14 +5,22 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 
 // get all products
 router.get('/', (req, res) => {
-  // find all products
-  // be sure to include its associated Category and Tag data
+  Product.findAll({include:[Category, Tag]}).then(allProducts => {
+    const plainProducts = allProducts.map(cat => cat.get({plain:true}));
+    res.json(plainProducts);
+  }).catch((err) => {
+    res.status(500).json({err:err})
+  })
 });
 
 // get one product
 router.get('/:id', (req, res) => {
-  // find a single product by its `id`
-  // be sure to include its associated Category and Tag data
+  Product.findByPk(req.params.id, {include:[Category, Tag]}).then(oneProduct => {
+    oneProduct.get({plain: true})
+    res.json(oneProduct);
+  }).catch((err) => {
+    res.status(500).json({err:err})
+  })
 });
 
 // create new product
@@ -90,7 +98,16 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-  // delete one product by its `id` value
+  Product.destroy({where: {id: req.params.id}})
+  .then((delProd) => {
+    if (delProd === 0) {
+      return res.status(404).json({msg: "no Product found"})
+    }
+    res.status(200).json(delProd)
+  }).catch((err) => {
+    console.log(err)
+    res.status(500).json({err:err})
+  })
 });
 
 module.exports = router;
