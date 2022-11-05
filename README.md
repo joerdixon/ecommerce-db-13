@@ -4,7 +4,7 @@
 This E-Commerce api allows users to create, update, see, and delete information about their ecommerce offerings. Users can add new categories, products, and tags to their database and interconnect them as needed for buisness.
 
 ## Examples
-Please see this example [video](https://drive.google.com/file/d/1-CLOlhyI0a24jy29eMvmMYxqEasC0pVq/view?usp=sharing)
+Please see this example [video](https://drive.google.com/file/d/1i6eHbMLQDVOq_X2G_VOLeMm2-iOTzGn6/view)
 
 ## Usage
 
